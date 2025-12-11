@@ -1,15 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Navigation from "./pages/auth/Navigation";
 
-function App() {
-
+const App = () => {
   return (
-    <>
-      <h1>hello</h1>
-    </>
-  )
-}
+    <div className="flex">
+      <ToastContainer />
 
-export default App
+      {/* Sidebar */}
+      <Navigation />
+
+      {/* Page Content */}
+      <main className="flex-1 ml-[4%] xl:ml-[15%] p-4 transition-all duration-300">
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+export default App;

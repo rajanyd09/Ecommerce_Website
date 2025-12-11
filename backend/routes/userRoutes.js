@@ -1,5 +1,5 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   registerUser,
   loginUser,
   getAllUsers,
@@ -8,14 +8,17 @@ const {
   deleteUserById,
   getUserById,
   updateUserById,
-} = require("../controllers/userController.js");
-const { protect, authorizeAdmin } = require("../middleware/authMiddleware");
+  logoutCurrentUser,
+} from "../controllers/userController.js";
+
+import { protect, authorizeAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.route("/").post(registerUser).get(protect, authorizeAdmin, getAllUsers);
 
 router.post("/auth", loginUser); // Public
+router.post("/logout", logoutCurrentUser);
 
 router
   .route("/profile")
@@ -28,4 +31,4 @@ router
   .get(protect, authorizeAdmin, getUserById)
   .put(protect, authorizeAdmin, updateUserById);
 
-module.exports = router;
+export default router;

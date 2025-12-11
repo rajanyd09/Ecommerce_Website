@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -34,10 +34,13 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    loginAttempts: { type: Number, default: 0 },
+    lockUntil: { type: Number },
   },
   { timestamps: true }
 );
 
+// Virtual field to check if account is locked
 userSchema.virtual("isLocked").get(function () {
   return !!(this.lockUntil && this.lockUntil > Date.now());
 });
@@ -54,6 +57,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
+// Increment login attempts and set lock if needed
 userSchema.methods.incLoginAttempts = function () {
   if (this.lockUntil && this.lockUntil < Date.now()) {
     return this.updateOne({
@@ -70,7 +74,7 @@ userSchema.methods.incLoginAttempts = function () {
   return this.updateOne(updates);
 };
 
-// Remove password from JSON response
+// Remove password from JSON responses
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
@@ -78,4 +82,5 @@ userSchema.methods.toJSON = function () {
 };
 
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+
+export default User;

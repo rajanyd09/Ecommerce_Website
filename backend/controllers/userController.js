@@ -1,13 +1,20 @@
-const User = require("../models/userModel");
-const asyncHandler = require("../middleware/asyncHandler");
-const generateToken = require("../utils/genrateToken");
+import User from "../models/userModel.js";
+import asyncHandler from "../middleware/asyncHandler.js";
+import generateToken from "../utils/genrateToken.js";
 
-const registerUser = asyncHandler(async (req, res) => {
+// @desc    Register a new user
+export const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password, isAdmin } = req.body;
 
   if (!username || !email || !password) {
     res.status(400);
-    throw new Error("First name, last name, email & password are required");
+    throw new Error("Username, email & password are required");
+  }
+
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("Email already registered");
   }
 
   const user = await User.create({
@@ -31,7 +38,8 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-const loginUser = asyncHandler(async (req, res) => {
+// @desc    Login user
+export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
@@ -42,6 +50,7 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
@@ -50,12 +59,24 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-const getAllUsers = asyncHandler(async (req, res) => {
+// @desc    Logout current user
+export const logoutCurrentUser = asyncHandler(async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "Logged out successfully" });
+});
+
+// @desc    Get all users (Admin)
+export const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
 });
 
-const getCurrentUserProfile = asyncHandler(async (req, res) => {
+// @desc    Get current user's profile
+export const getCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -70,7 +91,8 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-const updateCurrentUserProfile = asyncHandler(async (req, res) => {
+// @desc    Update current user's profile
+export const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -91,7 +113,8 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteUserById = asyncHandler(async (req, res) => {
+// @desc    Delete user by ID (Admin)
+export const deleteUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
@@ -108,7 +131,8 @@ const deleteUserById = asyncHandler(async (req, res) => {
   }
 });
 
-const getUserById = asyncHandler(async (req, res) => {
+// @desc    Get user by ID (Admin)
+export const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select("-password");
 
   if (user) {
@@ -119,7 +143,8 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
-const updateUserById = asyncHandler(async (req, res) => {
+// @desc    Update user by ID (Admin)
+export const updateUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
@@ -140,14 +165,3 @@ const updateUserById = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
-
-module.exports = {
-  registerUser,
-  loginUser,
-  getAllUsers,
-  getCurrentUserProfile,
-  updateCurrentUserProfile,
-  deleteUserById,
-  getUserById,
-  updateUserById,
-};
