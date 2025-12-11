@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   useCreateProductMutation,
@@ -8,8 +8,13 @@ import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
 import AdminMenu from "./AdminMenu";
 
+const API_BASE_URL = "http://localhost:4000"; // backend on port 4000
+
 const ProductList = () => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(""); // server path "/uploads/..."
+  const [imageFile, setImageFile] = useState(null); // actual File
+  const [imagePreview, setImagePreview] = useState(null); // local blob preview
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -17,7 +22,8 @@ const ProductList = () => {
   const [quantity, setQuantity] = useState("");
   const [brand, setBrand] = useState("");
   const [stock, setStock] = useState(0);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null); // server path from API
+
   const navigate = useNavigate();
 
   const [uploadProductImage] = useUploadProductImageMutation();
@@ -29,7 +35,10 @@ const ProductList = () => {
 
     try {
       const productData = new FormData();
-      productData.append("image", image);
+      // send file to createProduct
+      if (imageFile) {
+        productData.append("image", imageFile);
+      }
       productData.append("name", name);
       productData.append("description", description);
       productData.append("price", price);
@@ -53,18 +62,41 @@ const ProductList = () => {
   };
 
   const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // local preview
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+    setImageFile(file);
+
     const formData = new FormData();
-    formData.append("image", e.target.files[0]);
+    formData.append("image", file);
 
     try {
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
+      // res.image = "/uploads/image-....jpeg"
       setImage(res.image);
       setImageUrl(res.image);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
+      setImagePreview(null);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
+
+  // If backend image path exists, use full URL; else use local preview
+  const getDisplayImage = imageUrl
+    ? `${API_BASE_URL}${imageUrl}` // http://localhost:4000/uploads/...
+    : imagePreview;
 
   return (
     <div className="container xl:mx-[9rem] sm:mx-[0]">
@@ -88,10 +120,10 @@ const ProductList = () => {
                 Product Image
               </label>
 
-              {imageUrl ? (
+              {getDisplayImage ? (
                 <div className="relative w-full h-48 bg-[#1a1a1b] rounded-lg border border-gray-700 overflow-hidden group">
                   <img
-                    src={imageUrl}
+                    src={getDisplayImage}
                     alt="product"
                     className="w-full h-full object-contain"
                   />
