@@ -37,7 +37,7 @@ const ProductList = () => {
       const productData = new FormData();
       // send file to createProduct
       if (imageFile) {
-        productData.append("image", imageFile);
+        productData.append("image", image);
       }
       productData.append("name", name);
       productData.append("description", description);
