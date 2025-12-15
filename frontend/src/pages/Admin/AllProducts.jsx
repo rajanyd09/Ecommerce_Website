@@ -40,7 +40,7 @@ const AllProducts = () => {
                       <img
                         src={imageSrc}
                         alt={product.name}
-                        className="w-[10rem] object-cover"
+                        className="w-[10rem] object-contain"
                       />
 
                       <div className="p-4 flex flex-col justify-around">

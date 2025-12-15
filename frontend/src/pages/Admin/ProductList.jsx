@@ -53,7 +53,7 @@ const ProductList = () => {
         toast.error("Product create failed. Try Again.");
       } else {
         toast.success(`${data.name} is created`);
-        navigate("/");
+        navigate("/admin/allproductslist");
       }
     } catch (error) {
       console.error(error);
