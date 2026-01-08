@@ -7,6 +7,8 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -38,7 +40,7 @@ const Cart = () => {
                 <div key={item._id} className="flex items-enter mb-[1rem] pb-2">
                   <div className="w-[5rem] h-[5rem]">
                     <img
-                      src={item.image}
+                      src={`${API_BASE_URL}${item.image}`}
                       alt={item.name}
                       className="w-full h-full object-cover rounded"
                     />
