@@ -36,7 +36,7 @@ const ProductCarousel = () => {
       ) : (
         <Slider
           {...settings}
-          className="xl:w-[50rem] lg:w-[50rem] md:w-[56rem] sm:w-[40rem] sm:block"
+          className="xl:w-[47rem] lg:w-[47rem] md:w-[51rem] sm:w-[40rem] sm:block"
         >
           {products.map(
             ({
@@ -57,7 +57,7 @@ const ProductCarousel = () => {
                 <img
                   src={getImageUrl(image)} // ← This was the issue
                   alt={name}
-                  className="w-full rounded-lg object-cover h-[30rem]"
+                  className="w-full rounded-lg object-contain h-[30rem]"
                   onError={(e) => {
                     e.target.src =
                       "https://via.placeholder.com/480x400?text=No+Image";

@@ -10,7 +10,7 @@ const SmallProduct = ({ product }) => {
           <img
             src={getImageUrl(product.image)} // ✅ FIXED: Use getImageUrl
             alt={product.name}
-            className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-200"
+            className="w-full h-48 object-contain rounded-lg hover:scale-105 transition-transform duration-200"
             onError={(e) => {
               e.target.src =
                 "https://via.placeholder.com/300x200?text=No+Image";

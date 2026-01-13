@@ -23,6 +23,7 @@ const Product = ({ product }) => {
           }}
           loading="lazy"
         />
+
         <HeartIcon product={product} />
       </div>
 
