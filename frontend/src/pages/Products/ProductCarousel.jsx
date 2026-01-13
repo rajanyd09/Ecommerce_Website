@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import moment from "moment";
+import { getImageUrl } from "../../Utils/config"; // Add this import
 import {
   FaBox,
   FaClock,
@@ -13,7 +14,7 @@ import {
 } from "react-icons/fa";
 
 const ProductCarousel = () => {
-  const { data: products, isLoading, error } = useGetTopProductsQuery();
+  const { data: products = [], isLoading, error } = useGetTopProductsQuery();
 
   const settings = {
     dots: false,
@@ -35,7 +36,7 @@ const ProductCarousel = () => {
       ) : (
         <Slider
           {...settings}
-          className="xl:w-[50rem]  lg:w-[50rem] md:w-[56rem] sm:w-[40rem] sm:block"
+          className="xl:w-[50rem] lg:w-[50rem] md:w-[56rem] sm:w-[40rem] sm:block"
         >
           {products.map(
             ({
@@ -52,18 +53,23 @@ const ProductCarousel = () => {
               countInStock,
             }) => (
               <div key={_id}>
+                {/* ✅ FIXED: Use getImageUrl like your Product component */}
                 <img
-                  src={image}
+                  src={getImageUrl(image)} // ← This was the issue
                   alt={name}
                   className="w-full rounded-lg object-cover h-[30rem]"
+                  onError={(e) => {
+                    e.target.src =
+                      "https://via.placeholder.com/480x400?text=No+Image";
+                  }}
                 />
 
                 <div className="mt-4 flex justify-between">
                   <div className="one">
                     <h2>{name}</h2>
-                    <p> $ {price}</p> <br /> <br />
+                    <p>$ {price?.toLocaleString()}</p>
                     <p className="w-[25rem]">
-                      {description.substring(0, 170)} ...
+                      {description?.substring(0, 170)} ...
                     </p>
                   </div>
 
@@ -77,7 +83,7 @@ const ProductCarousel = () => {
                         {moment(createdAt).fromNow()}
                       </h1>
                       <h1 className="flex items-center mb-6">
-                        <FaStar className="mr-2 text-white" /> Reviews:
+                        <FaStar className="mr-2 text-white" /> Reviews:{" "}
                         {numReviews}
                       </h1>
                     </div>

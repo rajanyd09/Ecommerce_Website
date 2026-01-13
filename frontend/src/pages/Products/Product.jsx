@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import HeartIcon from "./HeartIcon";
-import { getImageUrl } from "../../Utils/config";
+import { getImageUrl } from "../../Utils/config"; // Make sure this import is correct
 
 const Product = ({ product }) => {
+  // Use the getImageUrl function from your config
   const imageSrc = getImageUrl(product.image);
 
-  // DEBUG: Remove after fix
-  console.log("Product image:", product.image, "→ Full URL:", imageSrc);
+  // DEBUG: Check what URL is being generated
+  console.log("Product image path:", product.image, "→ Full URL:", imageSrc);
 
   return (
     <div className="w-[30rem] ml-[2rem] p-3 relative bg-gray-900 rounded-lg shadow-lg">
@@ -17,7 +18,7 @@ const Product = ({ product }) => {
           className="w-full h-[25rem] object-cover transition-transform hover:scale-105"
           onError={(e) => {
             console.error("❌ Home image FAILED:", imageSrc);
-            e.target.src = "https://via.placeholder.com/480x400?text=No+Image"; // Visible fallback
+            e.target.src = "https://via.placeholder.com/480x400?text=No+Image";
             e.target.style.filter = "grayscale(1)";
           }}
           loading="lazy"

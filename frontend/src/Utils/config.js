@@ -1,8 +1,13 @@
-// src/config.js (or utils/config.js)
-export const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:4000";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-export const getImageUrl = (path) => {
-  const base = import.meta.env.VITE_API_URL || "http://localhost:4000";
-  return path?.startsWith("http") ? path : `${base}${path}`;
+export const getImageUrl = (imagePath) => {
+  if (!imagePath) return "https://via.placeholder.com/480x400?text=No+Image";
+
+  // If already a full URL (cloudinary, etc.)
+  if (imagePath.startsWith("http")) {
+    return imagePath;
+  }
+
+  // Attach backend URL
+  return `${BASE_URL}${imagePath}`;
 };
