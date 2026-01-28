@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 
@@ -28,55 +29,88 @@ function calcPrices(orderItems) {
 
 const createOrder = async (req, res) => {
   try {
-    const { orderItems, shippingAddress, paymentMethod } = req.body;
+    console.log('REQ.BODY:', req.body);
+    
+    const { 
+      orderItems, 
+      shippingAddress, 
+      paymentMethod, 
+      itemsPrice, 
+      taxPrice, 
+      shippingPrice, 
+      totalPrice 
+    } = req.body;
 
-    if (orderItems && orderItems.length === 0) {
-      res.status(400);
-      throw new Error("No order items");
+    // Validation
+    if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
+      res.status(400).json({ message: 'No order items' });
+      return;
     }
 
-    const itemsFromDB = await Product.find({
-      _id: { $in: orderItems.map((x) => x._id) },
-    });
+    if (!shippingAddress?.address) {
+      res.status(400).json({ message: 'Shipping address required' });
+      return;
+    }
 
+    // ✅ FIX: Use 'new' keyword for ObjectId constructor
+    const productIds = orderItems
+      .map(item => {
+        const id = item._id || item.product;
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+          throw new Error(`Invalid product ID: ${id}`);
+        }
+        return new mongoose.Types.ObjectId(id);  // ← KEY FIX
+      });
+
+    const itemsFromDB = await Product.find({
+      _id: { $in: productIds }
+    }).lean();
+
+    console.log('DB ITEMS:', itemsFromDB.length);
+
+    // Map order items with DB data
     const dbOrderItems = orderItems.map((itemFromClient) => {
-      const matchingItemFromDB = itemsFromDB.find(
-        (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
+      const productIdStr = itemFromClient._id || itemFromClient.product;
+      
+      const matchingItem = itemsFromDB.find(dbItem => 
+        dbItem._id.toString() === productIdStr
       );
 
-      if (!matchingItemFromDB) {
-        res.status(404);
-        throw new Error(`Product not found: ${itemFromClient._id}`);
+      if (!matchingItem) {
+        throw new Error(`Product not found: ${productIdStr}`);
       }
 
       return {
-        ...itemFromClient,
-        product: itemFromClient._id,
-        price: matchingItemFromDB.price,
-        _id: undefined,
+        name: matchingItem.name,
+        qty: itemFromClient.qty,
+        image: matchingItem.images?.[0] || matchingItem.image,
+        price: matchingItem.price,
+        product: matchingItem._id,
       };
     });
 
-    const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
-      calcPrices(dbOrderItems);
-
+    // Create order
     const order = new Order({
       orderItems: dbOrderItems,
       user: req.user._id,
       shippingAddress,
       paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
+      itemsPrice: itemsPrice || 0,
+      taxPrice: taxPrice || 0,
+      shippingPrice: shippingPrice || 0,
+      totalPrice: totalPrice || 0,
     });
 
     const createdOrder = await order.save();
     res.status(201).json(createdOrder);
+
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Create Order Error:', error);
+    res.status(500).json({ message: error.message });
   }
 };
+
+
 
 const getAllOrders = async (req, res) => {
   try {
