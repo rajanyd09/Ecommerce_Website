@@ -21,13 +21,17 @@ const Home = () => {
       ) : (
         <>
           <div className="flex justify-between items-center">
-            <h1 className="ml-[20rem] mt-[10rem] text-[3rem]">
-              Special Product
+            <h1 className="ml-[20rem] mt-[10rem] text-[3rem] font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Special Products
             </h1>
 
             <Link
               to="/shop"
-              className="bg-pink-600 font-bold rounded-full py-2 px-10 mr-[18rem] mt-[10rem]"
+              className="font-bold rounded-full py-3 px-10 mr-[18rem] mt-[10rem] shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                color: '#fff'
+              }}
             >
               Shop
             </Link>

@@ -91,26 +91,38 @@ const Shop = () => {
   return (
     <>
       <div className="container mx-auto">
-        <div className="flex md:flex-row">
-          <div className="bg-[#151515] p-3 mt-2 mb-2">
-            <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+        <div className="flex md:flex-row gap-4">
+          <div className="rounded-xl shadow-2xl border p-4 mt-2 mb-2"
+            style={{
+              background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
+              borderColor: 'rgba(71, 85, 105, 0.5)',
+              backdropFilter: 'blur(12px)'
+            }}
+          >
+            <h2 className="text-base font-bold text-center py-2.5 rounded-full mb-3 shadow-md"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(147, 51, 234, 0.2) 100%)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                color: '#f1f5f9'
+              }}
+            >
               Filter by Categories
             </h2>
 
-            <div className="p-5 w-[15rem]">
+            <div className="p-4 w-[15rem]">
               {categories?.map((c) => (
                 <div key={c._id} className="mb-2">
-                  <div className="flex ietms-center mr-4">
+                  <div className="flex items-center mr-4">
                     <input
                       type="checkbox"
                       id={`category-${c._id}`}
                       onChange={(e) => handleCheck(e.target.checked, c._id)}
-                      className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-blue-500 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2 cursor-pointer"
                     />
 
                     <label
                       htmlFor={`category-${c._id}`}
-                      className="ml-2 text-sm font-medium text-white dark:text-gray-300"
+                      className="ml-2 text-sm font-medium text-slate-200 cursor-pointer hover:text-blue-400 transition-colors"
                     >
                       {c.name}
                     </label>
@@ -119,24 +131,30 @@ const Shop = () => {
               ))}
             </div>
 
-            <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+            <h2 className="text-base font-bold text-center py-2.5 rounded-full mb-3 shadow-md"
+              style={{
+                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%)',
+                border: '1px solid rgba(236, 72, 153, 0.3)',
+                color: '#f1f5f9'
+              }}
+            >
               Filter by Brands
             </h2>
 
-            <div className="p-5">
+            <div className="p-4">
               {uniqueBrands?.map((brand) => (
-                <div key={brand} className="flex items-enter mr-4 mb-5">
+                <div key={brand} className="flex items-center mr-4 mb-4">
                   <input
                     type="radio"
                     id={`brand-${brand}`}
                     name="brand"
                     onChange={() => handleBrandClick(brand)}
-                    className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-4 h-4 text-pink-500 bg-slate-700 border-slate-600 focus:ring-pink-500 focus:ring-2 cursor-pointer"
                   />
 
                   <label
                     htmlFor={`brand-${brand}`}
-                    className="ml-2 text-sm font-medium text-white dark:text-gray-300"
+                    className="ml-2 text-sm font-medium text-slate-200 cursor-pointer hover:text-pink-400 transition-colors"
                   >
                     {brand}
                   </label>
@@ -144,38 +162,55 @@ const Shop = () => {
               ))}
             </div>
 
-            <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+            <h2 className="text-base font-bold text-center py-2.5 rounded-full mb-3 shadow-md"
+              style={{
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%)',
+                border: '1px solid rgba(16, 185, 129, 0.3)',
+                color: '#f1f5f9'
+              }}
+            >
               Filter by Price
             </h2>
 
-            <div className="p-5 w-[15rem]">
+            <div className="p-4 w-[15rem]">
               <input
                 type="text"
                 placeholder="Enter Price"
                 value={priceFilter}
                 onChange={handlePriceChange}
-                className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-pink-300"
+                className="w-full px-3 py-2 placeholder-slate-500 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                style={{
+                  background: 'rgba(30, 41, 59, 0.6)',
+                  borderColor: 'rgba(71, 85, 105, 0.8)',
+                  color: '#f1f5f9'
+                }}
               />
             </div>
 
-            <div className="p-5 pt-0">
+            <div className="p-4 pt-0">
               <button
-                className="w-full border my-4"
+                className="w-full py-2.5 rounded-lg font-semibold transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg"
+                style={{
+                  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                  color: '#fff'
+                }}
                 onClick={() => window.location.reload()}
               >
-                Reset
+                Reset Filters
               </button>
             </div>
           </div>
 
-          <div className="p-3">
-            <h2 className="h4 text-center mb-2">{products?.length} Products</h2>
-            <div className="flex flex-wrap">
+          <div className="p-3 flex-1">
+            <h2 className="text-2xl font-bold text-center mb-4 text-slate-100">
+              {products?.length} Products
+            </h2>
+            <div className="flex flex-wrap gap-4">
               {products.length === 0 ? (
                 <Loader />
               ) : (
                 products?.map((p) => (
-                  <div className="p-3" key={p._id}>
+                  <div key={p._id}>
                     <ProductCard p={p} />
                   </div>
                 ))

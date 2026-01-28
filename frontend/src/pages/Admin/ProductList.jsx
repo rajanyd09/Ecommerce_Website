@@ -105,7 +105,7 @@ const ProductList = () => {
         <div className="md:w-3/4 p-6">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-white">
+            <h1 className="text-2xl font-semibold text-gray-900">
               Create Product
             </h1>
             <p className="text-gray-400 text-sm mt-1">
@@ -121,7 +121,7 @@ const ProductList = () => {
               </label>
 
               {getDisplayImage ? (
-                <div className="relative w-full h-48 bg-[#1a1a1b] rounded-lg border border-gray-700 overflow-hidden group">
+                <div className="relative w-full h-48 bg-white rounded-lg border-2 border-gray-300 overflow-hidden group">
                   <img
                     src={getDisplayImage}
                     alt="product"
@@ -141,7 +141,7 @@ const ProductList = () => {
                   </label>
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer bg-[#1a1a1b] hover:bg-[#202021] transition-colors">
+                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-400 rounded-lg cursor-pointer bg-white hover:bg-gray-50 transition-colors">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg
                       className="w-10 h-10 mb-3 text-gray-400"
@@ -188,7 +188,7 @@ const ProductList = () => {
                 <input
                   type="text"
                   id="name"
-                  className="w-full px-3 py-2.5 bg-[#1a1a1b] border border-gray-700 rounded-lg text-white text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter product name"
@@ -206,7 +206,7 @@ const ProductList = () => {
                 <input
                   type="number"
                   id="price"
-                  className="w-full px-3 py-2.5 bg-[#1a1a1b] border border-gray-700 rounded-lg text-white text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="0.00"
@@ -224,7 +224,7 @@ const ProductList = () => {
                 <input
                   type="text"
                   id="brand"
-                  className="w-full px-3 py-2.5 bg-[#1a1a1b] border border-gray-700 rounded-lg text-white text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
                   placeholder="Enter brand name"
@@ -241,7 +241,7 @@ const ProductList = () => {
                 </label>
                 <select
                   id="category"
-                  className="w-full px-3 py-2.5 bg-[#1a1a1b] border border-gray-700 rounded-lg text-white text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   onChange={(e) => setCategory(e.target.value)}
                   value={category}
                 >
@@ -265,7 +265,7 @@ const ProductList = () => {
                 <input
                   type="number"
                   id="quantity"
-                  className="w-full px-3 py-2.5 bg-[#1a1a1b] border border-gray-700 rounded-lg text-white text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="0"
@@ -283,7 +283,7 @@ const ProductList = () => {
                 <input
                   type="number"
                   id="stock"
-                  className="w-full px-3 py-2.5 bg-[#1a1a1b] border border-gray-700 rounded-lg text-white text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
                   placeholder="0"
@@ -313,7 +313,7 @@ const ProductList = () => {
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="px-6 py-2.5 bg-pink-600 hover:bg-pink-700 text-white text-sm font-medium rounded-lg transition-colors focus:ring-4 focus:ring-pink-500 focus:ring-opacity-50"
+                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
               >
                 Create Product
               </button>

@@ -32,14 +32,14 @@ const ProductTabs = ({
   return (
     <div className="w-full max-w-6xl mx-auto">
       {/* Tab Headers */}
-      <div className="flex bg-gray-800 rounded-lg overflow-hidden mb-6">
+      <div className="flex bg-gray-100 rounded-lg overflow-hidden mb-6 border border-gray-200">
         {tabs.map((tab) => (
           <div
             key={tab.id}
-            className={`flex-1 py-4 px-6 text-center cursor-pointer transition-all duration-200 text-white hover:bg-pink-600 ${
+            className={`flex-1 py-4 px-6 text-center cursor-pointer transition-all duration-200 text-gray-700 hover:bg-blue-600 hover:text-white ${
               activeTab === tab.id
-                ? "bg-pink-600 font-bold shadow-md"
-                : "hover:text-pink-300"
+                ? "bg-blue-600 font-bold shadow-md text-white"
+                : "hover:text-blue-300"
             }`}
             onClick={() => handleTabClick(tab.id)}
           >
@@ -52,13 +52,13 @@ const ProductTabs = ({
       <div className="space-y-8">
         {/* Tab 1: Write Review */}
         {activeTab === 1 && (
-          <div className="bg-gray-900 p-8 rounded-xl shadow-2xl">
+          <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
             {userInfo ? (
               <form onSubmit={submitHandler} className="max-w-2xl">
                 <div className="mb-6">
                   <label
                     htmlFor="rating"
-                    className="block text-xl font-semibold mb-3 text-white"
+                    className="block text-xl font-semibold mb-3 text-gray-900"
                   >
                     Rating *
                   </label>
@@ -67,7 +67,7 @@ const ProductTabs = ({
                     required
                     value={rating}
                     onChange={(e) => setRating(Number(e.target.value))}
-                    className="w-full p-4 border-2 border-gray-600 rounded-xl bg-gray-800 text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/50"
+                    className="w-full p-4 border-2 border-gray-300 rounded-xl bg-white text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50"
                   >
                     <option value="">Select Rating</option>
                     <option value="1">⭐ Inferior</option>
@@ -91,7 +91,7 @@ const ProductTabs = ({
                     required
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                    className="w-full p-4 border-2 border-gray-600 rounded-xl bg-gray-800 text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/50 resize-vertical"
+                    className="w-full p-4 border-2 border-gray-300 rounded-xl bg-white text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 resize-vertical"
                     placeholder="Share your experience with this product..."
                   />
                 </div>
@@ -99,18 +99,18 @@ const ProductTabs = ({
                 <button
                   type="submit"
                   disabled={loadingProductReview || !rating || !comment}
-                  className="bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 px-8 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-200"
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 px-8 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-200"
                 >
                   {loadingProductReview ? "Submitting..." : "Submit Review"}
                 </button>
               </form>
             ) : (
               <div className="text-center py-12">
-                <p className="text-xl text-gray-300 mb-4">
+                <p className="text-xl text-gray-600 mb-4">
                   Please{" "}
                   <Link
                     to="/login"
-                    className="text-pink-400 hover:text-pink-300 font-semibold"
+                    className="text-blue-400 hover:text-blue-300 font-semibold"
                   >
                     sign in
                   </Link>{" "}
@@ -125,8 +125,8 @@ const ProductTabs = ({
         {activeTab === 2 && (
           <div className="space-y-4">
             {product.reviews.length === 0 ? (
-              <div className="text-center py-12 bg-gray-900 rounded-xl">
-                <p className="text-xl text-gray-400">
+              <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
+                <p className="text-xl text-gray-500">
                   No reviews yet. Be the first to review!
                 </p>
               </div>
@@ -134,10 +134,10 @@ const ProductTabs = ({
               product.reviews.map((review) => (
                 <div
                   key={review._id}
-                  className="bg-[#1A1A1A] p-6 rounded-xl border border-gray-700 hover:border-pink-500/50 transition-all duration-200"
+                  className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500/50 transition-all duration-200"
                 >
                   <div className="flex flex-wrap items-center justify-between mb-4 gap-2">
-                    <strong className="text-lg text-white">
+                    <strong className="text-lg text-gray-900">
                       {review.name}
                     </strong>
                     <span className="text-sm text-gray-400">
@@ -145,7 +145,7 @@ const ProductTabs = ({
                     </span>
                   </div>
                   <Ratings value={review.rating} />
-                  <p className="mt-4 text-gray-300 leading-relaxed">
+                  <p className="mt-4 text-gray-700 leading-relaxed">
                     {review.comment}
                   </p>
                 </div>

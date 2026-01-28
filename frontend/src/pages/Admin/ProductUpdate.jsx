@@ -145,11 +145,11 @@ const AdminProductUpdate = () => {
         </div>
 
         <div className="md:w-3/4">
-          <div className="bg-[#101011] border border-gray-800 rounded-2xl shadow-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-6">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h1 className="text-2xl font-semibold text-white">
+                <h1 className="text-2xl font-semibold text-gray-900">
                   Edit Product
                 </h1>
                 <p className="text-gray-400 text-sm mt-1">
@@ -167,7 +167,7 @@ const AdminProductUpdate = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-[260px,1fr] gap-6">
               {/* Left: Image card */}
-              <div className="bg-[#141416] border border-gray-800 rounded-xl p-4 flex flex-col items-center">
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col items-center">
                 <p className="text-sm font-medium text-gray-300 mb-3 w-full">
                   Product Image
                 </p>
@@ -177,11 +177,11 @@ const AdminProductUpdate = () => {
                     <img
                       src={displayImage}
                       alt="product"
-                      className="max-w-[200px] h-auto object-cover rounded-md border border-gray-700 shadow-sm"
+                      className="max-w-[200px] h-auto object-cover rounded-md border border-gray-300 shadow-sm"
                     />
                   </div>
                 ) : (
-                  <div className="w-full h-40 flex items-center justify-center border-2 border-dashed border-gray-700 rounded-md mb-3">
+                  <div className="w-full h-40 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md mb-3">
                     <span className="text-xs text-gray-500">
                       No image uploaded
                     </span>
@@ -189,7 +189,7 @@ const AdminProductUpdate = () => {
                 )}
 
                 <label className="w-full mt-1">
-                  <div className="w-full inline-flex items-center justify-center px-3 py-2 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-100 cursor-pointer transition">
+                  <div className="w-full inline-flex items-center justify-center px-3 py-2 text-xs font-medium rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-900 cursor-pointer transition">
                     {image ? "Change Image" : "Upload Image"}
                   </div>
                   <input
@@ -211,7 +211,7 @@ const AdminProductUpdate = () => {
               {/* Right: Form fields */}
               <form
                 onSubmit={handleSubmit}
-                className="bg-[#141416] border border-gray-800 rounded-xl p-4 space-y-4"
+                className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-4"
               >
                 {/* Row 1 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -225,7 +225,7 @@ const AdminProductUpdate = () => {
                     <input
                       id="name"
                       type="text"
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-[#101011] border border-gray-700 text-white focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Product name"
@@ -242,7 +242,7 @@ const AdminProductUpdate = () => {
                     <input
                       id="price"
                       type="number"
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-[#101011] border border-gray-700 text-white focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                       placeholder="0.00"
@@ -263,7 +263,7 @@ const AdminProductUpdate = () => {
                       id="quantity"
                       type="number"
                       min="1"
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-[#101011] border border-gray-700 text-white focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                       placeholder="Available units"
@@ -280,7 +280,7 @@ const AdminProductUpdate = () => {
                     <input
                       id="brand"
                       type="text"
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-[#101011] border border-gray-700 text-white focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
                       value={brand}
                       onChange={(e) => setBrand(e.target.value)}
                       placeholder="Brand name"
@@ -300,7 +300,7 @@ const AdminProductUpdate = () => {
                     <input
                       id="stock"
                       type="number"
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-[#101011] border border-gray-700 text-white focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
                       value={stock}
                       onChange={(e) => setStock(e.target.value)}
                       placeholder="0"
@@ -316,7 +316,7 @@ const AdminProductUpdate = () => {
                     </label>
                     <select
                       id="category"
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-[#101011] border border-gray-700 text-white focus:ring-1 focus:ring-pink-500 focus:border-pink-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                     >
@@ -352,7 +352,7 @@ const AdminProductUpdate = () => {
                 <div className="flex flex-wrap gap-3 pt-2">
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-pink-600 hover:bg-pink-700 text-white shadow-sm transition"
+                    className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition"
                   >
                     Save Changes
                   </button>

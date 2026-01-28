@@ -5,9 +5,13 @@ const FavoritesCount = () => {
   const favoriteCount = favorites.length;
 
   return (
-    <div className="absolute left-2 top-8">
+    <div className="ml-2">
       {favoriteCount > 0 && (
-        <span className="px-1 py-0 text-sm text-white bg-pink-500 rounded-full">
+        <span className="px-1.5 py-0.5 text-xs text-white rounded-full font-semibold min-w-[20px] text-center inline-block shadow-lg"
+          style={{
+            background: 'linear-gradient(135deg, #ec4899 0%, #a855f7 100%)'
+          }}
+        >
           {favoriteCount}
         </span>
       )}

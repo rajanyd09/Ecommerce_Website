@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import HeartIcon from "./HeartIcon";
-import { getImageUrl } from "../../Utils/config"; // ✅ Keep this (handles images)
+import { getImageUrl } from "../../Utils/config";
 
 const ProductCard = ({ p }) => {
   const dispatch = useDispatch();
@@ -18,70 +18,66 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="max-w-sm relative bg-[#1A1A1A] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-sm relative rounded-xl shadow-lg border overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+      style={{
+        background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
+        borderColor: 'rgba(71, 85, 105, 0.5)'
+      }}
+    >
       <section className="relative">
         <Link to={`/product/${p._id}`}>
-          <span className="absolute bottom-3 right-3 bg-pink-100 text-pink-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-pink-900 dark:text-pink-300">
+          <span className="absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full z-10 shadow-lg"
+            style={{
+              background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(147, 51, 234, 0.9) 100%)',
+              color: '#fff'
+            }}
+          >
             {p?.brand}
           </span>
           <img
-            src={getImageUrl(p.image)} // ✅ Already correct
+            src={getImageUrl(p.image)}
             alt={p?.name}
-            className="cursor-pointer w-full rounded-t-lg" // ✅ Better Tailwind classes
-            style={{ height: "170px", objectFit: "cover" }}
+            className="cursor-pointer w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
             onError={(e) => {
               e.target.src =
-                "https://via.placeholder.com/300x170?text=No+Image";
+                "https://via.placeholder.com/300x200?text=No+Image";
             }}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </Link>
         <HeartIcon product={p} />
       </section>
 
-      <div className="p-5">
-        <div className="flex justify-between items-start mb-3">
-          <h5 className="text-xl font-semibold text-white truncate pr-2">
-            {" "}
-            {/* ✅ Fixed typo, added truncate */}
+      <div className="p-4">
+        <Link to={`/product/${p._id}`}>
+          <h5 className="text-lg font-semibold text-slate-100 truncate mb-2 hover:text-blue-400 transition-colors">
             {p?.name}
           </h5>
-          <p className="text-pink-500 font-bold text-lg">
-            {" "}
-            {/* ✅ Simplified */}${p?.price?.toLocaleString()}
-          </p>
-        </div>
+        </Link>
 
-        <p className="mb-4 text-[#CFCFCF] text-sm line-clamp-2">
-          {" "}
-          {/* ✅ Better truncation */}
+        <p className="mb-3 text-slate-400 text-sm line-clamp-2 leading-relaxed">
           {p?.description}
         </p>
 
-        <section className="flex justify-between items-center">
-          <Link
-            to={`/product/${p._id}`}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-pink-700 rounded-lg hover:bg-pink-800 transition-colors duration-200"
-          >
-            Read More
-            <svg className="w-3.5 h-3.5 ml-2" fill="none" viewBox="0 0 14 10">
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
-          </Link>
+        <div className="flex items-center justify-between pt-3 border-t border-slate-700">
+          <div className="flex flex-col">
+            <span className="text-xs text-slate-500 font-medium">Price</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              ${p?.price?.toLocaleString()}
+            </span>
+          </div>
 
           <button
-            className="p-3 bg-pink-600 hover:bg-pink-700 rounded-full transition-all duration-200 shadow-lg hover:scale-105"
+            className="p-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'
+            }}
             onClick={() => addToCartHandler(p, 1)}
             title="Add to cart"
           >
-            <AiOutlineShoppingCart className="text-white" size={22} />
+            <AiOutlineShoppingCart className="text-white" size={20} />
           </button>
-        </section>
+        </div>
       </div>
     </div>
   );

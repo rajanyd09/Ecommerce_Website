@@ -1,36 +1,21 @@
+/* Fixed width navigation - no hover effects needed */
 #navigation-container {
-  width: 4%;
-  transition: width 0.3s ease-in-out;
-  overflow: hidden; /* Hide overflowing content during transition */
+  width: 12rem; /* 256px / w-64 */
+  transition: none;
+  overflow: visible;
 }
 
-#navigation-container:hover {
-  width: 15%;
-}
-
-/* Initially hide nav-item-name */
+/* Show all nav items by default */
 .nav-item-name {
-  display: none;
-  transition: opacity 0.2s ease-in-out; /* Add opacity transition */
-}
-
-#navigation-container:hover .nav-item-name {
-  display: block;
+  display: inline-block;
   opacity: 1;
 }
 
 .search-input {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out; /* Add opacity transition */
-}
-
-#navigation-container:hover .search-input {
   display: block;
   opacity: 1;
 }
 
-#navigation-container:hover .search-icon {
+.search-icon {
   display: none;
-  transition: opacity 0.2s ease-in-out; /* Add opacity transition */
 }

@@ -61,7 +61,7 @@ const Profile = () => {
             <input
               type="text"
               placeholder="Enter name"
-              className="form-input p-3 rounded-md w-full border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:outline-none"
+              className="form-input p-3 rounded-md w-full border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               value={username}
               onChange={(e) => setUserName(e.target.value)}
             />
@@ -103,7 +103,7 @@ const Profile = () => {
           <div className="flex justify-between items-center">
             <button
               type="submit"
-              className="bg-pink-500 text-white py-2 px-5 rounded-md hover:bg-pink-600 transition"
+              className="bg-blue-500 text-white py-2 px-5 rounded-md hover:bg-blue-600 transition"
             >
               Update
             </button>

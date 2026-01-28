@@ -10,7 +10,7 @@ const Header = () => {
 
   if (error)
     return (
-      <h1 className="text-center text-red-500 mt-4">
+      <h1 className="text-center text-red-400 mt-4 font-semibold">
         Failed to load top products.
       </h1>
     );
@@ -18,7 +18,7 @@ const Header = () => {
   if (!products.length) {
     return (
       <div className="flex justify-center items-center py-8">
-        <p className="text-gray-400 text-sm">
+        <p className="text-slate-400 text-sm">
           No top products available right now.
         </p>
       </div>
@@ -26,15 +26,15 @@ const Header = () => {
   }
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-6 lg:py-10">
         {/* Header title row (optional) */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Featured Products
             </h2>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-slate-400 mt-2">
               Handpicked items based on ratings and popularity.
             </p>
           </div>
